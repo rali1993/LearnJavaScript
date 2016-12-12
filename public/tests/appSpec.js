@@ -6,32 +6,4 @@ describe('Learn JavaScript', function() {
         learnjavascript.showView('#question-1');
         expect($('.view-container .question-view').length).toEqual(1);
     });
-
-    it ('shows the landing page wiew when there is not hash'removeFunctionWithId(){
-
-    }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
