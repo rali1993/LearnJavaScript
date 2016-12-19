@@ -3,9 +3,23 @@
  */
 'use strict';
 var learnjavascript={};
-
-learnjavascript.showView = function(hash){
-    var questionView =  $('<div class="question-view">').text('Arriving Soon!');
-      $('.view-container').empty().append(questionView);
+learnjavascript.questionView = function(questionNumber){
+    var title= 'Question #'+questionNumber +' Arriving soon!!!';
+    return $('<div class="question-view" >').text(title);
+};
+learnjavascript.showView = function(hash) {
+    var routes = {
+        '#question': learnjavascript.questionView
     };
-
+    var hashParts = hash.split('-');
+    var viewFn = routes[hashParts[0]];
+    if (viewFn) {
+        $('.view-container').empty().append(viewFn(hashParts[1]));
+    }
+};
+learnjavascript.appOnReady = function() {
+    window.onhashchange = function() {
+        learnjavascript.showView(window.location.hash);
+    };
+    learnjavascript.showView(window.location.hash);
+};

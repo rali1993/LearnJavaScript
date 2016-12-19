@@ -5,7 +5,7 @@
         <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css'>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'>
-        <script src='https//code.jquery.com/jquery-3.1.1.js'></script>
+        <script src='https://code.jquery.com/jquery-3.1.1.js'></script>
         <script src='javascript/app.js'></script>
         <style type="text/css" media="all">
                 body { margin-top: 30px; }
@@ -17,8 +17,8 @@
                 <div class='landing-view'>
                         <div class="row">
                                 <div class='one-half column'>
-                                        <h3>Learning Javascript, one  question at a time </h3>
-                                        <a href="" class="button  button-primary">Start</a>
+                                        <h3>Learning Javascript, one question at a time </h3>
+                                        <a href="#question-1" class="button button-primary">Start</a>
                                 </div>
                                 <div class='one-half column'>
                                         <img src="images/puzzle.jpg" />
@@ -27,19 +27,38 @@
                 </div>
         </div>
 </div>
-
+<script type="text/javascript">
+        $(document).on('hashchanged', learnjavascript.appOnReady());
+        $(document).on('ready', learnjavascript.appOnReady());
+</script>
 </body>
 </html>
-
-<script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
-<script>
-        // Initialize Firebase
-        var config = {
-                apiKey: "AIzaSyD5IKSa1EL_fMcuDytfUeQ1GMZ48DZXOFs",
-                authDomain: "project-aa426.firebaseapp.com",
-                databaseURL: "https://project-aa426.firebaseio.com",
-                storageBucket: "project-aa426.appspot.com",
-                messagingSenderId: "249072966903"
-        };
-        firebase.initializeApp(config);
-</script>
+your Helper.js file should look like this.
+/**
+* Created by davem on 27/11/2016.
+*/
+var fixture;
+function loadFixture(path) {
+var html;
+$.ajax({
+url: '../index.html',
+success: function(result) {
+html = result;
+},
+async: false
+});
+return $.parseHTML(html);
+}
+function resetFixture() {
+if (!fixture) {
+var index = $('<div>').append(loadFixture('../index.html'));
+        var markup = index.find('div.markup');
+        fixture = $('<div class="fixture" style="display: none">').append(markup);
+                $('body').append(fixture.clone());
+                } else {
+                $('.fixture').replaceWith(fixture.clone());
+                }
+                }
+                beforeEach(function () {
+                resetFixture();
+                });
